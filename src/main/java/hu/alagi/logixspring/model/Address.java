@@ -1,6 +1,7 @@
 package hu.alagi.logixspring.model;
 
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
@@ -8,18 +9,23 @@ import java.util.Objects;
 @Entity
 public class Address extends AbstractEntity<Long> {
 
+    @NotEmpty
     @Size(max = 2)
     private String countryCode;
 
+    @NotEmpty
     @Size(max = 20)
     private String postalCode;
 
+    @NotEmpty
     @Size(max = 100)
     private String city;
 
+    @NotEmpty
     @Size(max = 200)
     private String streetName;
 
+    @NotEmpty
     @Size(max = 20)
     private String houseNumber;
 
