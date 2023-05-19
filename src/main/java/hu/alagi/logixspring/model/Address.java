@@ -3,6 +3,7 @@ package hu.alagi.logixspring.model;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.Range;
 
 import java.util.Objects;
 
@@ -29,8 +30,10 @@ public class Address extends AbstractEntity<Long> {
     @Size(max = 20)
     private String houseNumber;
 
+    @Range(min=-90, max = 90)
     private Double latitude;
 
+    @Range(min=-180, max = 180)
     private Double longitude;
 
     public Address() {

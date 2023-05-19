@@ -1,33 +1,42 @@
 package hu.alagi.logixspring.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.Range;
 
 import java.util.Objects;
 public class AddressDto {
 
-    private long id;
+    private Long id;
 
-    @Size(max = 2)
+    @NotEmpty
+    @Size(min=2, max = 2)
     private String countryCode;
+    @NotEmpty
     @Size(max = 20)
     private String postalCode;
+    @NotEmpty
     @Size(max = 100)
     private String city;
+    @NotEmpty
     @Size(max = 200)
     private String streetName;
+    @NotEmpty
     @Size(max = 20)
     private String houseNumber;
+    @Range(min=-90, max = 90)
     private Double latitude;
+    @Range(min=-180, max = 180)
     private Double longitude;
 
     public AddressDto() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
