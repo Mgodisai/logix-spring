@@ -41,6 +41,10 @@ public class AddressService {
         return Optional.of(addressRepository.save(address));
     }
 
+    public void saveAddressList(List<Address> addresses) {
+        addressRepository.saveAll(addresses);
+    }
+
     public void checkCountryCode(String countryCode) {
         if (!countryService.isValidISOCountryCode(countryCode)) {
             throw new InvalidCountryCodeException(countryCode);

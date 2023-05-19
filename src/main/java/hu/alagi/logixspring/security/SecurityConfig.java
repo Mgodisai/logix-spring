@@ -32,8 +32,9 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .anyRequest()
-                .authenticated();
+                .requestMatchers("/api/addresses/**").hasAuthority(Role.ADDRESS_MANAGER.getAuthority())
+                .requestMatchers("/api/transportPlans/**").hasAuthority(Role.TRANSPORT_MANAGER.getAuthority())
+                .anyRequest().permitAll();
 
         return http.build();
     }
@@ -54,17 +55,23 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService users() {
+        final String BAD_COMMON_PASSWORD = "pass123";
         UserDetails addressManagerUser = User.builder()
                 .username("aman")
-                .password(passwordEncoder().encode("pass123"))
-                .roles(Role.ADDRESS_MANAGER.getAuthority())
+                .password(passwordEncoder().encode(BAD_COMMON_PASSWORD))
+                .roles(Role.ADDRESS_MANAGER.getName())
                 .build();
         UserDetails transportManagerUser = User.builder()
                 .username("tman")
-                .password(passwordEncoder().encode("pass123"))
-                .roles(Role.TRANSPORT_MANAGER.getAuthority())
+                .password(passwordEncoder().encode(BAD_COMMON_PASSWORD))
+                .roles(Role.TRANSPORT_MANAGER.getName())
                 .build();
-        return new InMemoryUserDetailsManager(addressManagerUser, transportManagerUser);
+        UserDetails superUser = User.builder()
+                .username("super")
+                .password(passwordEncoder().encode(BAD_COMMON_PASSWORD))
+                .roles(Role.TRANSPORT_MANAGER.getName(), Role.ADDRESS_MANAGER.getName())
+                .build();
+        return new InMemoryUserDetailsManager(addressManagerUser, transportManagerUser, superUser);
     }
 
     public PasswordEncoder passwordEncoder() {
