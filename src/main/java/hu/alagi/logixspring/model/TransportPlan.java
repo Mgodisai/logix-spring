@@ -7,16 +7,16 @@ import java.util.List;
 @Entity
 @NamedEntityGraph(
         name = "graph.TransportPlanWithSectionsAndMilestonesAndAddresses",
-        attributeNodes = @NamedAttributeNode(value = "sectionList", subgraph = "subgraph.section"),
+        attributeNodes = @NamedAttributeNode(value = TransportPlan_.SECTION_LIST, subgraph = "subgraph.section"),
         subgraphs = {
                 @NamedSubgraph(name = "subgraph.section",
                         attributeNodes = {
-                        @NamedAttributeNode(value = "toMilestone", subgraph = "subgraph.milestone"),
-                        @NamedAttributeNode(value = "fromMilestone", subgraph = "subgraph.milestone")
+                        @NamedAttributeNode(value = Section_.FROM_MILESTONE, subgraph = "subgraph.milestone"),
+                        @NamedAttributeNode(value = Section_.TO_MILESTONE, subgraph = "subgraph.milestone")
                 }),
                 @NamedSubgraph(name = "subgraph.milestone",
                         attributeNodes = {
-                                @NamedAttributeNode(value = "address")
+                                @NamedAttributeNode(value = Milestone_.ADDRESS)
                         })
         })
 public class TransportPlan extends AbstractEntity<Long>{

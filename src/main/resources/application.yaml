@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/logixspring
-    username: postgres
-    password: postgres
+    username: user
+    password: userpass
   jpa:
     show-sql: true
     hibernate:
@@ -14,8 +14,8 @@ logix:
       30: 5.0
       60: 10.0
       120: 20.0
-  jwtdata:
+  jwt-data:
     issuer: @artifactId@
     secret: thisIsTheBigSecret
     algorithm: HMAC512
-    duration: 600000
+    duration: 10m

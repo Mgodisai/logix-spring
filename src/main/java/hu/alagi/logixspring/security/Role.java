@@ -13,4 +13,14 @@ public enum Role implements GrantedAuthority {
     public String getName() {
         return name();
     }
+
+    public static Role getRoleValue(String stringValue) {
+        for(Role value : values())
+            if(value.getName().equalsIgnoreCase(stringValue.replace("ROLE_","")))  {
+                return value;
+            }
+        throw new IllegalArgumentException();
+    }
+
+
 }
