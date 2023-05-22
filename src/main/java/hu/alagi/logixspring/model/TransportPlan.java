@@ -1,11 +1,24 @@
 package hu.alagi.logixspring.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
+@NamedEntityGraph(
+        name = "graph.TransportPlanWithSectionsAndMilestonesAndAddresses",
+        attributeNodes = @NamedAttributeNode(value = "sectionList", subgraph = "subgraph.section"),
+        subgraphs = {
+                @NamedSubgraph(name = "subgraph.section",
+                        attributeNodes = {
+                        @NamedAttributeNode(value = "toMilestone", subgraph = "subgraph.milestone"),
+                        @NamedAttributeNode(value = "fromMilestone", subgraph = "subgraph.milestone")
+                }),
+                @NamedSubgraph(name = "subgraph.milestone",
+                        attributeNodes = {
+                                @NamedAttributeNode(value = "address")
+                        })
+        })
 public class TransportPlan extends AbstractEntity<Long>{
     private Double expectedRevenue;
 

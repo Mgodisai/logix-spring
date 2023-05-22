@@ -1,5 +1,6 @@
 package hu.alagi.logixspring.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Range;
@@ -7,29 +8,48 @@ import org.hibernate.validator.constraints.Range;
 import java.util.Objects;
 public class AddressDto {
 
+    @JsonView(Views.ExtendedView.class)
     private Long id;
 
     @NotEmpty
     @Size(min=2, max = 2)
+    @JsonView(Views.BaseView.class)
     private String countryCode;
     @NotEmpty
     @Size(max = 20)
+    @JsonView(Views.BaseView.class)
     private String postalCode;
     @NotEmpty
     @Size(max = 100)
+    @JsonView(Views.BaseView.class)
     private String city;
     @NotEmpty
     @Size(max = 200)
+    @JsonView(Views.BaseView.class)
     private String streetName;
     @NotEmpty
     @Size(max = 20)
+    @JsonView(Views.BaseView.class)
     private String houseNumber;
     @Range(min=-90, max = 90)
+    @JsonView(Views.ExtendedView.class)
     private Double latitude;
     @Range(min=-180, max = 180)
+    @JsonView(Views.ExtendedView.class)
     private Double longitude;
 
     public AddressDto() {
+    }
+
+    public AddressDto(Long id, String countryCode, String postalCode, String city, String streetName, String houseNumber, Double latitude, Double longitude) {
+        this.id = id;
+        this.countryCode = countryCode;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Long getId() {

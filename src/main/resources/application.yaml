@@ -8,3 +8,9 @@ spring:
     hibernate:
       ddl-auto: create-drop
     open-in-view: false
+logix:
+  revenue-reduction:
+    value-limits:
+      30: 5.0
+      60: 10.0
+      120: 20.0
