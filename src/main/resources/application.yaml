@@ -14,3 +14,8 @@ logix:
       30: 5.0
       60: 10.0
       120: 20.0
+  jwtdata:
+    issuer: @artifactId@
+    secret: thisIsTheBigSecret
+    algorithm: HMAC512
+    duration: 600000

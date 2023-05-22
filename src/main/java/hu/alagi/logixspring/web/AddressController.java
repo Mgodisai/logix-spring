@@ -1,6 +1,8 @@
 package hu.alagi.logixspring.web;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import hu.alagi.logixspring.dto.AddressSearchDto;
+import hu.alagi.logixspring.dto.Views;
 import hu.alagi.logixspring.exception.EntityIdMismatchException;
 import hu.alagi.logixspring.exception.EntityNotExistsWithGivenIdException;
 import hu.alagi.logixspring.mapper.AddressMapper;
@@ -22,6 +24,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/addresses")
+@JsonView(Views.ExtendedView.class)
 public class AddressController {
 
     private final AddressService addressService;
