@@ -51,11 +51,11 @@ public class Milestone extends AbstractEntity<Long>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Milestone milestone = (Milestone) o;
-        return Objects.equals(address, milestone.address) && Objects.equals(plannedTime, milestone.plannedTime);
+        return this.getId() != null && this.getId().equals(milestone.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address, plannedTime);
+        return Objects.hash(this.getId());
     }
 }

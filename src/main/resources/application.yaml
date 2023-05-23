@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/logixspring
-    username: user
-    password: userpass
+    username: postgres
+    password: postgres
   jpa:
     show-sql: true
     hibernate:

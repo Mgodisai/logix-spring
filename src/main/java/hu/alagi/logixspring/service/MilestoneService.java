@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MilestoneService {
@@ -16,6 +17,7 @@ public class MilestoneService {
         this.milestoneRepository = milestoneRepository;
     }
 
+    @Transactional
     public void saveMilestoneList(List<Milestone> milestones) {
         milestoneRepository.saveAll(milestones);
     }
@@ -23,5 +25,9 @@ public class MilestoneService {
     @Transactional
     public void deleteAll() {
         milestoneRepository.deleteAll();
+    }
+
+    public Optional<Milestone> findMilestoneById(Long milestoneId) {
+        return milestoneRepository.findById(milestoneId);
     }
 }

@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(uniqueConstraints={
-        @UniqueConstraint(columnNames = {Section.COLUMN_FROM_MILESTONE}),
-        @UniqueConstraint(columnNames = {Section.COLUMN_TO_MILESTONE})
+        @UniqueConstraint(columnNames = {Section.COLUMN_FROM_MILESTONE, Section.COLUMN_TO_MILESTONE})
 })
 public class Section extends AbstractEntity<Long>{
 
@@ -42,6 +41,15 @@ public class Section extends AbstractEntity<Long>{
     }
 
     public Section() {
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void checkMilestoneIds() {
+        if (fromMilestone != null && toMilestone != null
+                && fromMilestone.getId().equals(toMilestone.getId())) {
+            throw new IllegalArgumentException("Fields must contain unique IDs");
+        }
     }
 
     public Milestone getFromMilestone() {

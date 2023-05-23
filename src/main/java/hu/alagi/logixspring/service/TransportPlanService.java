@@ -52,9 +52,12 @@ public class TransportPlanService {
         return transportPlanRepository.save(transportPlan);
     }
 
+    public Optional<TransportPlan> findTransportPlanById(Long id) {
+        return transportPlanRepository.findTransportPlanById(id);
+    }
     private void updateMilestonesAndRevenue(TransportPlan transportPlan, Milestone milestone, Integer delayInMinutes) {
         List<Section> sections = transportPlan.getSectionList();
-
+        sections.sort(Comparator.comparing(Section::getSectionOrderIndex));
         boolean isNextSectionAffected = false;
         boolean affectedMilestoneBelongsToThisTransportPlan = false;
         for (Section section : sections) {
@@ -99,5 +102,9 @@ public class TransportPlanService {
                 .max(Comparator.comparingDouble(Map.Entry::getKey))
                 .map(Map.Entry::getValue)
                 .orElse(0d);
+    }
+
+    public void deleteAll() {
+        transportPlanRepository.deleteAll();
     }
 }

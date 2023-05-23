@@ -16,22 +16,22 @@ public class SectionService {
         this.sectionRepository = sectionRepository;
     }
 
+    @Transactional
     public void saveSectionList(List<Section> sections) {
         for (var s : sections) {
             createSection(s);
         }
     }
 
+    @Transactional
     public Optional<Section> createSection(Section section) {
-        Optional<Section> existingSectionWithAnyMilestone =
-                sectionRepository.findSectionByFromMilestoneOrToMilestone(section.getFromMilestone(), section.getToMilestone());
-        if (existingSectionWithAnyMilestone.isPresent()) {
+        if (sectionRepository.existsWithAlreadyUsedMilestone(section.getFromMilestone(), section.getToMilestone())
+        ) {
             throw new IllegalStateException("A section with the same fromMilestone or toMilestone already exists");
         } else {
             return Optional.of(sectionRepository.save(section));
         }
     }
-
 
     @Transactional
     public void deleteAll() {

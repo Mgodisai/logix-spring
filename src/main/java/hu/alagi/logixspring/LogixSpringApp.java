@@ -19,7 +19,7 @@ public class LogixSpringApp implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args)  {
         initDbService.clearDB();
         initDbService.insertTestData();
     }

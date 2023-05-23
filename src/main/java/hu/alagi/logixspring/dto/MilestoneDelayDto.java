@@ -17,6 +17,9 @@ public class MilestoneDelayDto {
         this.delayInMinutes = delayInMinutes;
     }
 
+    public MilestoneDelayDto() {
+    }
+
 
     @NotNull
     public Long getMilestoneId() {

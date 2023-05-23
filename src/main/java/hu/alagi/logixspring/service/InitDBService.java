@@ -27,6 +27,8 @@ public class InitDBService {
     public void clearDB() {
         milestoneService.deleteAll();
         addressService.deleteAll();
+        sectionService.deleteAll();
+        transportPlanService.deleteAll();
     }
 
 
@@ -89,7 +91,7 @@ public class InitDBService {
         transportPlanService.saveTransportPlan(transportPlan1);
 
         Section section1 = new Section(milestone1, milestone2, transportPlan1, 0);
-        Section section2 = new Section(milestone3, milestone5, transportPlan1, 1);
+        Section section2 = new Section(milestone3, milestone4, transportPlan1, 1);
         Section section3 = new Section(milestone5, milestone6, transportPlan1, 2);
         List<Section> sections = List.of(section1, section2, section3);
         sectionService.saveSectionList(sections);
